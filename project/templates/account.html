@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row" style="margin:10px;">
+      <div class="media-heading col-md-8 flex-column d-flex align-items-center" style="display:relative">
+          <img class="rounded-circle account-img" src="{{ image }}" alt="" style="max-width:130px; margin-left: -150px;">
+          <div class="media-body">
+              <h2 class="account-heading" style="margin-top: 20px;">{{ current_user.username }}</h2>
+              <p class="text-secondary">{{ current_user.email }}</p>
+              <form class="border" method="post" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+                  <input type="file" name="file" class="form-control-file">
+                  {{ form.submit(class="btn btn-outline-info") }}
+              </form>
+            </div>
+        </div>
+      <form class="col-md-2 h-25" action="" style="max-width:fit-content; background-color: rgba(133, 152, 182, 0.2); margin-top: 10%;">
+        <div class="contents" style="margin: 20px;">
+          <div class="form-group">
+            <h6>Posts: {{ posts }}</h6>
+          </div>
+      </div>
+      </form>
+    </div>
+</div>
+{% endblock %}

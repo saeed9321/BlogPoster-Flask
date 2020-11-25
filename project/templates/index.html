@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  {% if not title %}
+  <title>Blog Poster - Flask app</title>
+  {% else %}
+  <title>{{title}}</title>
+  {% endif %}
+  <!-- Bootstrap core CSS -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/blog-post.css') }}" rel="stylesheet">
+
+</head>
+
+<body style="position: relative;">
+{% block body %}
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">My Blog Poster</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          {% if not title %}
+          <li class="nav-item active">
+            <a class="nav-link" href="index">Home</a>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="index">Home</a>
+          </li>
+          {% endif %}
+          {% if not current_user.is_authenticated %}
+              {% if title == "Login Page" %}
+              <li class="nav-item active">
+                <a class="nav-link" href="login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="register">Register</a>
+              </li>
+              {% elif title == "Registration page" %}
+              <li class="nav-item">
+                <a class="nav-link" href="login">Login</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="register">Register</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="register">Register</a>
+              </li>
+              {% endif %}
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="new">New Post</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="account">Account</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="logout">Logout</a>
+              </li>
+            {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+  <!-- Page Content -->
+  {% block content %}
+  {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert alert-{{category}}" style="margin-top:5px">{{msg}}</div>
+        {% endfor %}
+      {% endif %}
+  {% endwith %}
+  <div class="container">
+    <div class="row">
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+        {% for post in posts %}
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" style="max-width: 300px; max-height:100px" src="{{url_for('static', filename=post.author.profile_image)}}" alt="">
+        <!-- Author -->
+        <p class="lead" style="font-size:0.9em">
+          by {{post.author.username}}
+        </p>
+        <!-- Date/Time -->
+        <p style="font-size:0.6em; margin-top:-14px">Posted on {{post.date_posted.strftime('%Y %b %d - %I:%M %p')}}</p>
+        <!-- Title -->
+        <h1 class="mt-4" style="margin-left: 10vw;">{{post.title}}</h1>
+        <!-- Post Content -->
+        <div class="row" style="justify-content: space-between;">
+          <p class="lead" style="margin-left: 15vw;">{{ post.content }}</p>
+          {% if current_user.id == post.author.id %}
+          <a href="delete/{{ post.id }}" class="btn btn-danger" style="max-height: 2.3em;">Delete </a>
+          {% endif %}
+        </div>
+        <hr>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  <!-- /.container -->
+  {% block footer %}
+  <!-- Footer -->
+  <footer class="py-5 bg-dark" style="position: absolute; margin-top: 11.55em; width: 100%;">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Post blog by Flask 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  {% endblock %}
+</body>
+
+</html>

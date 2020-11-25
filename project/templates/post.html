@@ -1,0 +1,20 @@
+{% extends 'index.html'%}
+
+{% block content %}
+<div class="card my-5 text-center col-10 mx-auto">
+          <h5 class="card-header">Create a New Post</h5>
+          <div class="card-body">
+            <form method="post">
+              {{ new_post.hidden_tag() }}
+              <div class="form-group">
+                    <div class="row" style="align-content:center">
+                        <h5>Title:<span class="label label-default"></span></h5>
+                        <input class="form-control col-10 mx-auto" type="text" name="title" style="margin-bottom: 5vh;">
+                    </div>
+                <textarea class="form-control" name="content" rows="12"></textarea>
+              </div>
+              {{ new_post.submit(class="btn btn-primary") }}
+            </form>
+          </div>
+        </div>
+{% endblock %}
