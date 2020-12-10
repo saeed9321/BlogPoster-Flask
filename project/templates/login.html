@@ -2,6 +2,13 @@
 
 
 {% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert alert-{{category}}" style="margin-top:5px">{{msg}}</div>
+        {% endfor %}
+      {% endif %}
+  {% endwith %}
 
     <form class="col-md-4 mx-auto" action="" method="post" style="background-color: rgba(31, 31, 25, 0.7); border-radius: 20px; color:white; margin-top:10vh">
       {{ form.hidden_tag() }}
