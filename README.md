@@ -14,3 +14,13 @@ wtforms.validators
 werkzeug.security
 werkzeug.utils
 ```
+
+demo:
+in command line after installing the above requirements
+```
+py run.py
+```
+then follow the below link
+```
+127.0.0.1/index
+```
