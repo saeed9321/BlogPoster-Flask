@@ -22,5 +22,5 @@ py run.py
 ```
 then follow the below link
 ```
-127.0.0.1/index
+http://127.0.0.1:5000/index
 ```
