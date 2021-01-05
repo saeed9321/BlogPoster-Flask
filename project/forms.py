@@ -21,7 +21,7 @@ class UpdateForm(FlaskForm):
     submit = SubmitField('Update')
 
 class BlogForm(FlaskForm):
-    submit = SubmitField('Post a blog')
+    submit = SubmitField('Post')
 
 class UploadImage(FlaskForm):
     submit = SubmitField('Submit')

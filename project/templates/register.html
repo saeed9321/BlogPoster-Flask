@@ -1,72 +1,65 @@
 {% extends 'index.html' %}
 
 {% block content %}
-{% with messages = get_flashed_messages(with_categories=True) %}
-      {% if messages %}
-        {% for category, msg in messages %}
-          <div class="alert alert-{{category}}" style="margin-top:5px">{{msg}}</div>
-        {% endfor %}
-      {% endif %}
-  {% endwith %}
 
-<form class="col-md-4 mx-auto" action="" method="post" style="background-color: rgba(31, 31, 25, 0.7); border-radius: 20px; color:white; margin-top:5vh">
+<form class="reg-form" action="" method="post">
       {{ form.hidden_tag() }}
       <fieldset class="form">
-        <legend>Register here</legend>
+        <h1>Register a new account</h1>
         <div class="form-group">
-          {{ form.username.label(class="form-control-label") }}
+          <i class="fa fa-user-o" aria-hidden="true"> {{form.username.label}}</i>
           {% if form.username.errors %}
-            {{ form.username(class="form-control form-control-lg is-invalid") }}
+            {{ form.username(class="form-control invalid") }}
             <div class="invalid-feedback">
             {% for error in form.username.errors %}
               <span>{{ error }}</span>
             {% endfor %}
           </div>
           {% else %}
-            {{ form.username(class="form-control form-control-lg") }}
+            {{ form.username(class="form-control") }}
           {% endif %}
         </div>
         <div class="form-group">
-          {{ form.email.label(class="form-control-label") }}
+          <i class="fa fa-envelope-o" aria-hidden="true"> {{form.email.label}}</i>
           {% if form.email.errors %}
-            {{ form.email(class="form-control form-control-lg is-invalid") }}
+            {{ form.email(class="form-control invalid") }}
           <div class="invalid-feedback">
             {% for error in form.email.errors %}
               <span>{{ error }}</span>
             {% endfor %}
           </div>
           {% else %}
-            {{ form.email(class="form-control form-control-lg") }}
+            {{ form.email(class="form-control") }}
           {% endif %}
         </div>
         <div class="form-group">
-          {{ form.password.label(class="form-control-label") }}
+          <i class="fa fa-key" aria-hidden="true"> {{ form.password.label }}</i>
           {% if form.password.errors %}
-            {{ form.password(class="form-control form-control-lg is-invalid") }}
+            {{ form.password(class="form-control invalid") }}
             <div class="invalid-feedback">
             {% for error in form.password.errors %}
               <span>{{ error }}</span>
             {% endfor %}
           </div>
           {% else %}
-            {{ form.password(class="form-control form-control-lg") }}
+            {{ form.password(class="form-control") }}
           {% endif %}
         </div>
         <div class="form-group">
-          {{ form.confirm_password.label(class="form-control-label") }}
+          <i class="fa fa-key" aria-hidden="true"> {{ form.confirm_password.label }} </i>
           {% if form.confirm_password.errors %}
-            {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+            {{ form.confirm_password(class="form-control invalid") }}
             <div class="invalid-feedback">
-            Does not match with the Password
+            Does Not match with password
           </div>
           {% else %}
-            {{ form.confirm_password(class="form-control form-control-lg") }}
+            {{ form.confirm_password(class="form-control") }}
           {% endif %}
         </div>
-        <span>Already have an account? <a href="login">Log in</a></span><br>
-        <div class="form-group" style="margin-top:5px">
-          {{ form.submit(class="btn btn-outline-info") }}
+        <div class="form-group">
+          {{ form.submit(class="btn-submit") }}
         </div>
+        <span id="login-toAccount">Already have an account? <a href="login" style="text-decoration: none; color: aqua;">Log in</a></span>
       </fieldset>
     </form>
 {% endblock %}

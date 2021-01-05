@@ -21,6 +21,10 @@ def delete(post_id):
         db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/')
+def home():
+    return redirect(url_for('index'))
+
 @app.route('/index')
 def index():
     posts = Post.query.all()
@@ -36,7 +40,7 @@ def new():
         db.session.commit()
         flash('New post submitted', 'success')
         return redirect(url_for('index'))
-    return render_template('post.html', new_post=new_post)
+    return render_template('post.html', new_post=new_post, title="New Post")
 
 @app.route('/login', methods=['get', 'post'])
 def login():
@@ -61,11 +65,11 @@ def register():
         elif User.query.filter_by(email=form.email.data).first():
             flash("Already have an account with this Email", "danger")
         else:
-            flash(f'Successfully registered in as {form.username.data}!', 'success')
+            flash(f'Successfully registered, Please login', 'success')
             user = User(username=form.username.data, password=generate_password_hash(form.password.data), email=form.email.data)
             db.session.add(user)
             db.session.commit()
-            return redirect(url_for('index'))
+            return redirect(url_for('login'))
     return render_template('register.html', title="Registration page", form=form)
 
 @app.route('/logout')
